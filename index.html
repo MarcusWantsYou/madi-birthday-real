@@ -175,6 +175,9 @@ background:radial-gradient(circle at 25% 25%,#fff 0 3px,transparent 4px) 0 0/40p
 #env.open .seal{display:none}#env.open .efl{transform:rotateX(180deg);z-index:0}#env.rise .el{transform:translateY(-70%)}
 #envh{position:absolute;left:0;right:0;bottom:26%;text-align:center;font-size:10px;color:#fff;text-shadow:2px 2px 0 #000;animation:bl .7s steps(2) infinite;z-index:6}
 #thf{width:calc(32px*var(--s));margin-bottom:calc(-2px*var(--s))}
+#ccard{position:absolute;inset:0;z-index:35;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;opacity:0;pointer-events:none}
+#ccard small{font-size:9px;color:#cdbb8e;letter-spacing:2px}#ccard b{font:italic 28px Georgia,serif;color:#f0e2bc;margin-top:12px}#ccard i{display:block;width:60%;height:1px;background:#f0e2bc;margin-top:14px}
+@keyframes ccf{0%{opacity:0}15%{opacity:1}75%{opacity:1}100%{opacity:0}}
 </style></head><body>
 <div id="game" class="s-title">
  <div id="stars"></div><div id="moon"></div>
@@ -218,6 +221,7 @@ background:radial-gradient(circle at 25% 25%,#fff 0 3px,transparent 4px) 0 0/40p
  <canvas id="fx"></canvas>
  <div id="bub"><img id="bp" alt=""><span id="bt"></span></div>
  <div id="dlg"><img id="pt" alt=""><div><div id="nm"></div><div id="tx"></div></div><div id="nx">▼</div></div>
+ <div id="ccard" hidden><small>CHAPTER IV</small><b>Dear Butterfly</b><i></i></div>
  <div id="wrap"><div id="tag"><i></i><b>TO<br>MADI</b><u>FROM<br>MARCUS</u><span>OPEN ON<br>YOUR<br>BIRTHDAY</span></div></div>
  <div id="fade"></div>
  <button id="snd" class="btn">♪</button>
@@ -507,6 +511,7 @@ $('#contB').onclick=()=>{ SFX.click(); $('#contB').hidden=true; giftScene(); };
 // ---- Poem ----
 const poemEl=$('#poem');
 async function poemScene(){ await go('poem'); setBase('calm'); showMadi('50%',false); setTempo(760);
+  const cc=$('#ccard'); cc.hidden=false; cc.style.animation='none'; void cc.offsetWidth; cc.style.animation='ccf 3.6s linear forwards'; await sleep(3700); cc.hidden=true;
   $('#scroll').style.visibility='hidden'; const env=$('#env'); env.className='pe in'; env.hidden=false; $('#envh').hidden=false;
   await new Promise(r=>{let d=0;const op=()=>{if(d)return;d=1;r()};env.onclick=op;setTimeout(op,9000)});
   $('#envh').hidden=true; SFX.pop(); const [ex,ey]=ctr($('#seal')); burst(ex,ey,16); env.classList.add('open'); await sleep(900);
@@ -611,6 +616,18 @@ function cat(k,f){return mk(22,16,R=>{const ada=k=='ada',ar=k=='arthur',gr=k=='g
     if(gr){for(let X=5;X<14;X++)for(let Y=5;Y<14;Y++){const h=(X*7+Y*3)%5;if(h==0)R('#8a5a30',X,Y);else if(h==1&&X>8)R('#c07a3a',X,Y)}R('#8a5a30',9,2,3,3);R('#c07a3a',14,3,2,2)}
     R(ey,11,3,2,2);R(ey,14,3,2,2);R('#111',12,3,1,2);R('#111',15,3,1,2);R('#fff',11,3);R('#f08a9a',17,5);R('#3a1410',15,6,2,1);R('#e8e0d0',17,4);R('#e8e0d0',17,6)
   }})}
+function butterfly(f){return mk(48,40,R=>{const sp=[1,.72,.45,.72][f],cx=24,M=new Map(),PAL=['#fff2fb','#ffc6e6','#ff8cc8','#d27cff','#8a8cff','#62d4ff'];
+  const wing=(ox,cy,a,b,th)=>{const co=Math.cos(th),si=Math.sin(th);for(let y=0;y<40;y++)for(let x=0;x<48;x++){const dx=Math.abs(x-cx);if(dx<1)continue;const px=dx-ox,py=y-cy,u1=(px*co+py*si)/a,v1=(-px*si+py*co)/b,ang=Math.atan2(v1,u1),t=Math.hypot(u1,v1)+Math.sin(ang*7)*.035;
+    if(t<=1){let c=t<.15?PAL[0]:t<.35?PAL[1]:t<.55?PAL[2]:t<.72?PAL[3]:t<.86?PAL[4]:t<.94?PAL[5]:'#ffd86b';
+      if(t>.2&&t<.8&&Math.abs(Math.sin(ang*5))<.09)c=t<.5?'#e86ab8':'#a86ae8';
+      if(t>.77&&t<.83&&(x+y)%3==0)c='#fff';M.set(x+','+y,c)}}};
+  wing(Math.max(4,10*sp),16,Math.max(5,13*sp),10,-.5);wing(Math.max(3,7*sp),28,Math.max(4,9*sp),7,.5);
+  M.forEach((c,k)=>{const [x,y]=k.split(',').map(Number);[[1,0],[-1,0],[0,1],[0,-1]].forEach(([a,b])=>{if(!M.has((x+a)+','+(y+b)))R('#3a1a5a',x+a,y+b)})});
+  M.forEach((c,k)=>{const [x,y]=k.split(',').map(Number);R(c,x,y)});
+  R('#4a2a3a',cx-1,12,2,22);[15,19,23,27,31].forEach(y=>R('#ffd86b',cx-1,y,2,1));
+  R('#f2d58a',cx-3,4,6,3);R('#f6d2b0',cx-2,6,4,5);R('#f2d58a',cx-3,7,1,6);R('#f2d58a',cx+2,7,1,6);R('#e8c870',cx-3,13,1,5);R('#e8c870',cx+2,13,1,5);
+  R('#2a1a3a',cx-2,8);R('#2a1a3a',cx+1,8);R('#d96a7a',cx-1,10,2,1);
+  R('#ffd86b',cx-3,2,1,3);R('#ffd86b',cx-4,1);R('#ff7ab0',cx-5,0);R('#ffd86b',cx+2,2,1,3);R('#ffd86b',cx+3,1);R('#ff7ab0',cx+4,0)})}
 function buildRide(){
   const mp={down:{},walkA:{legs:1},walkB:{legs:2},hold:{a:'hold'},holdA:{a:'hold',legs:1},holdB:{a:'hold',legs:2},give:{a:'give'},shock:{a:'shock',m:'o'},whistle:{a:'whistle',m:'o'}};
   SPR.mc={}; for(const k in mp)SPR.mc[k]=marcus(mp[k]); SPR.marcus=SPR.mc.down;
@@ -626,6 +643,7 @@ function buildRide(){
   SPR.hm=[0,1,2,3].map(f=>horse(HC1,f,'madi'));
   SPR.hb=[0,1,2,3].map(f=>horse(HC2,f,'bandit'));
   SPR.hn=[0,1,2,3].map(f=>horse(HC1,f,'none'));
+  SPR.bfly=[0,1,2,3].map(butterfly);
   for(const k of ['ada','arthur','gracie'])SPR[k]=[0,1,2,3,'sit'].map(f=>cat(k,f));
 }
 function finalCast(){ if($('#fcast'))return; const d=document.createElement('div'); d.id='fcast';
@@ -637,7 +655,7 @@ const fr=(img,set,ms=130)=>{let i=0;img.src=set[0];const t=setInterval(()=>{img.
 const mv=(el,l,ms,ease)=>{el.style.transition=`left ${ms}ms ${ease||'steps('+Math.max(2,ms/80|0)+')'},bottom .5s steps(6)`;el.style.left=l};
 const snap=(el,l)=>{el.style.transition='none';el.style.left=l;void el.offsetWidth};
 async function giftScene(){ await go('gift','s-intro'); const sc=$('#sc-gift'),M=$('#marcus'),G=$('#gift'),L=$('#ltr'),B=$('#thf');
-  let Z=$('#bowE'); if(!Z){Z=document.createElement('img');Z.id='bowE';Z.className='gimg';Z.style.width='calc(8px*var(--s))';sc.appendChild(Z)}
+  sc.style.zIndex=3; let Z=$('#bowE'); if(!Z){Z=document.createElement('img');Z.id='bowE';Z.className='gimg';Z.style.width='calc(8px*var(--s))';sc.appendChild(Z)}
   const mc={}; for(const k in SPR.mc)mc[k]=url(SPR.mc[k]); const hn=SPR.hn.map(url),hm=SPR.hm.map(url),hb=SPR.hb.map(url), hand='calc(var(--g) - 10px + 4px*var(--s))';
   G.src=url(SPR.box);L.src=url(SPR.letter);Z.src=url(SPR.bow);M.src=mc.hold; [G,L,B,Z].forEach(e=>e.hidden=true); G.style.zIndex=3; G.style.bottom=hand; M.hidden=G.hidden=false; snap(M,'-15%'); snap(G,'-15%');
   setBase('happy'); showMadi('68%'); setTempo(520); anim('drop',600); await sleep(600);
@@ -664,7 +682,7 @@ async function giftScene(){ await go('gift','s-intro'); const sc=$('#sc-gift'),M
   mv(madi,'56%',700); anim('bounce',350); await sleep(750); showMadi('56%',false); setBase('happy'); B.src=hm[0]; SFX.pop();
   toast("Go get it, birthday girl!",2200,'marcus'); await sleep(400);
   stop=fr(B,hm,70); const sm3=setInterval(()=>{const r=B.getBoundingClientRect(),g=game.getBoundingClientRect(); smoke(r.left-g.left+r.width*.25,r.bottom-g.top-6); tone(90,.07,'triangle',.06)},70);
-  B.style.transition='left 1.5s ease-in'; B.style.left='130%'; await sleep(1550); clearInterval(sm3); stop(); startHorse(); }
+  B.style.transition='left 1.5s ease-in'; B.style.left='130%'; await sleep(1550); clearInterval(sm3); stop(); sc.style.zIndex=''; startHorse(); }
 
 // ---- shared canvas helpers ----
 const rc=$('#rc'),rx=rc.getContext('2d'); let RS=null,rLast=0,K={};
@@ -773,32 +791,49 @@ function windStep(dt,W,H,u){ const s=RS,f=dt/16.7,gy=H*.7,px=W*.27,ly=i=>gy+(i-1
 // ---- cats ----
 async function startCats(){ await go('ride','s-ride'); showMadi('50%',false); setTempo(420); const W=game.clientWidth,H=game.clientHeight,u=Math.max(3,Math.floor(W/105));
   RS={mode:'cat',u,t:0,card:4200,ph:'idle',pause:false,caught:0,tx:null,ty:null,dn:0,m:{x:W*.5,y:H*.78,fl:0,mv:0},
-    cats:[['ada','ADA',2.15],['arthur','ARTHUR',2.05],['gracie','GRACIE',1.95]].map(([k,n,v],i)=>({k,n,i,sp:u*v,x:W+u*20,y:H*(.62+i*.12),st:1,wt:0,wa:0,fl:1,caught:0,tw:rnd(0,9)}))}; rLast=0; requestAnimationFrame(rtick); await sleep(4200);
-  await say("Finally. Deep breath…",'madi'); await say("Okay. Opening it now…",'madi'); hideDlg(); RS.ph='enter'; await sleep(1700); RS.ph='scatter'; SFX.err(); shake();
-  await say("MROW!",'','ADA'); await say("…they took the letter. All three of them.",'madi'); await say("Ada! Arthur! GRACIE!",'madi');
-  await say("Drag or tap to run after them. Cats get tired if you keep chasing!",'','HOW TO PLAY'); hideDlg(); RS.ph='play'; }
+    cats:[['ada','ADA',2.15],['arthur','ARTHUR',2.05],['gracie','GRACIE',1.95]].map(([k,n,v],i)=>({k,n,i,sp:u*v,x:W+u*20,y:H*(.62+i*.12),st:1,wt:0,wa:0,fl:1,caught:0,tw:0,dx:0,dy:0,sv:0,mv:0}))}; rLast=0; requestAnimationFrame(rtick); await sleep(4200);
+  await say("Finally. Deep breath…",'madi'); await say("Okay. Opening it now…",'madi'); hideDlg(); RS.ph='enter'; await sleep(1700); RS.ph='corner'; SFX.err(); shake();
+  await say("MROW!",'','ADA'); await say("…they took the letter. All three of them.",'madi'); await say("Ada! Arthur! GRACIE!",'madi'); await say("They're way too fast on foot…",'madi');
+  hideDlg(); RS.ph='morph'; RS.mt=0; await sleep(2600);
+  await say("Wait… I'm a BUTTERFLY?!",'madi'); await say("Drag or tap to fly after them. Cats get tired if you keep chasing!",'','HOW TO PLAY'); hideDlg(); RS.ph='play'; toast("Go get them, Butterfly!",2600,'marcus'); }
 function catStep(dt,W,H,u){ const s=RS,f=dt/16.7,m=s.m,k=u*.85,x0=u*10,x1=W-u*10,y0=H*.52,y1=H-u*6; s.t+=dt; if(s.card>0)s.card-=dt;
   if(s.ph==='play'&&!s.over){ let dx=(kd('ArrowRight','d','D')?1:0)-(kd('ArrowLeft','a','A')?1:0),dy=(kd('ArrowDown','s','S')?1:0)-(kd('ArrowUp','w','W')?1:0);
     if(!dx&&!dy&&s.tx!=null){const ex=s.tx-m.x,ey=s.ty-m.y,d=Math.hypot(ex,ey); if(d>u*3){dx=ex/d;dy=ey/d}}
     const l=Math.max(1,Math.hypot(dx,dy)); m.mv=(dx||dy)?1:0; if(dx||dy){m.x=clamp(m.x+dx/l*u*2*f,x0,x1);m.y=clamp(m.y+dy/l*u*2*f,y0,y1); if(Math.abs(dx)>.2)m.fl=dx<0} }
-  for(const c of s.cats){ const d=Math.hypot(c.x-m.x,c.y-m.y);
-    if(s.ph==='enter'){ c.x+=(m.x+(c.i-1)*u*14-c.x)*.07*f; c.y+=(m.y-u*2-c.y)*.07*f; continue }
-    if(c.caught||s.ph==='idle')continue;
-    let vx,vy,sp; if(d<u*34||s.ph==='scatter'){ const tired=c.st<=0; sp=tired?u*.7:c.sp; const a=Math.atan2(c.y-m.y,c.x-m.x)+Math.sin(s.t/300+c.i*2)*.6; vx=Math.cos(a);vy=Math.sin(a); if(!tired)c.st-=dt/2600; else c.st=Math.max(c.st,-.3); }
-    else{ c.wt-=dt; if(c.wt<=0){c.wa=rnd(0,6.28);c.wt=rnd(600,1600)} vx=Math.cos(c.wa);vy=Math.sin(c.wa);sp=u*.5;c.st=Math.min(1,c.st+dt/3500) }
-    let nx=c.x+vx*sp*f,ny=c.y+vy*sp*f; if(nx<x0||nx>x1){nx=clamp(nx,x0,x1);ny=c.y+(c.y>m.y?1:-1)*sp*f} if(ny<y0||ny>y1){ny=clamp(ny,y0,y1);nx=c.x+(c.x>m.x?1:-1)*sp*f}
-    if(Math.abs(nx-c.x)>.01)c.fl=nx<c.x; c.x=clamp(nx,x0,x1);c.y=clamp(ny,y0,y1);
-    if(s.ph==='play'&&d<u*13){ c.caught=1; s.caught++; SFX.found(); hearts(c.x,c.y-u*8,6); toast(`Caught ${c.n}! ${s.caught}/3`,2000,'madi'); if(s.caught===3){s.over=true;catWin()} } }
-  for(let it=0;it<3;it++)for(let i=0;i<3;i++)for(let j=i+1;j<3;j++){const a=s.cats[i],b=s.cats[j];let nx=(b.x-a.x)/(u*21),ny=(b.y-a.y)/(u*9),d=Math.hypot(nx,ny); if(d<1){ if(d<.001){nx=1;ny=0;d=1} const px=nx/d*(1-d)*u*21,py=ny/d*(1-d)*u*9,wa=a.caught?0:b.caught?1:.5,wb=b.caught?0:a.caught?1:.5; a.x-=px*wa;a.y-=py*wa;b.x+=px*wb;b.y+=py*wb } }
-  s.cats.forEach(c=>{c.x=clamp(c.x,x0,x1);c.y=clamp(c.y,y0,y1)});
+  const cn=[[x0+u*4,y0+u*4],[x1-u*4,y0+u*4],[x1-u*4,y1-u*2]];
+  for(const c of s.cats){ const d=Math.hypot(c.x-m.x,c.y-m.y); c.mv=0;
+    if(s.ph==='idle'||c.caught)continue;
+    if(s.ph==='enter'){ const tx=m.x+(c.i-1)*u*24,ty=m.y-u*2,ex=tx-c.x,ey=ty-c.y,dd=Math.hypot(ex,ey); if(dd>u*2){const st=Math.min(dd,u*3.2*f);c.x+=ex/dd*st;c.y+=ey/dd*st;c.mv=1;if(Math.abs(ex)>u)c.fl=ex<0}else c.fl=c.x>m.x; continue }
+    if(s.ph!=='play'){ const [tx,ty]=cn[c.i],ex=tx-c.x,ey=ty-c.y,dd=Math.hypot(ex,ey); if(dd>u*1.5){const st=Math.min(dd,u*2.8*f);c.x+=ex/dd*st;c.y+=ey/dd*st;c.mv=1;if(Math.abs(ex)>u)c.fl=ex<0}else{c.x=tx;c.y=ty;c.fl=c.x>m.x;c.dx=c.dy=c.sv=0} continue }
+    let vx=0,vy=0,sp=0; c.dash=(c.dash||0)-dt; c.cd=(c.cd||0)-dt;
+    if(d<u*50){ const tired=c.st<=0; sp=tired?u*.7:c.sp; vx=(c.x-m.x)/(d||1); vy=(c.y-m.y)/(d||1);
+      const mg=u*26; vx+=Math.max(0,(x0+mg-c.x)/mg)*1.1-Math.max(0,(c.x-(x1-mg))/mg)*1.1; vy+=Math.max(0,(y0+mg*.6-c.y)/(mg*.6))*1.1-Math.max(0,(c.y-(y1-mg*.6))/(mg*.6))*1.1;
+      if(d<u*34&&c.cd<=0&&!tired){ const px=-(c.y-m.y),py=(c.x-m.x),sg=(px*(W/2-c.x)+py*((y0+y1)/2-c.y))>=0?1:-1; c.ux=px*sg/(d||1); c.uy=py*sg/(d||1); c.dash=500; c.cd=1800; c.st-=.12 }
+      if(c.dash>0){ vx=vx*.35+c.ux; vy=vy*.35+c.uy; sp*=1.55 }
+      const jk=Math.sin(s.t/420+c.i*2)*.3,wx=vx-vy*jk,wy=vy+vx*jk,vl=Math.hypot(wx,wy)||1; vx=wx/vl; vy=wy/vl; if(!tired)c.st-=dt/3400; else c.st=Math.max(c.st,-.3) }
+    else c.st=Math.min(1,c.st+dt/2500);
+    const ee=Math.min(1,.22*f); c.dx+=(vx-c.dx)*ee; c.dy+=(vy-c.dy)*ee; c.sv+=(sp-c.sv)*ee;
+    c.x=clamp(c.x+c.dx*c.sv*f,x0,x1); c.y=clamp(c.y+c.dy*c.sv*f,y0,y1); c.mv=c.sv>u*.4?1:0;
+    if(c.mv&&Math.abs(c.dx)>.3)c.fl=c.dx<0; else if(!c.mv)c.fl=c.x>m.x;
+    if(d<u*13){ c.caught=1; c.dx=c.dy=c.sv=0; s.caught++; SFX.found(); hearts(c.x,c.y-u*8,6); toast(`Caught ${c.n}! ${s.caught}/3`,2000,'madi'); if(s.caught===3){s.over=true;catWin()} } }
+  if(s.ph==='play'){ for(let it=0;it<3;it++)for(let i=0;i<3;i++)for(let j=i+1;j<3;j++){const a=s.cats[i],b=s.cats[j];let nx=(b.x-a.x)/(u*21),ny=(b.y-a.y)/(u*9),d=Math.hypot(nx,ny); if(d<1){ if(d<.001){nx=1;ny=0;d=1} const px=nx/d*(1-d)*u*21,py=ny/d*(1-d)*u*9,wa=a.caught?0:b.caught?1:.5,wb=b.caught?0:a.caught?1:.5; a.x-=px*wa;a.y-=py*wa;b.x+=px*wb;b.y+=py*wb } }
+    s.cats.forEach(c=>{c.x=clamp(c.x,x0,x1);c.y=clamp(c.y,y0,y1)}) }
+  const mt=s.ph==='morph'?s.mt:9999,bf=s.ph==='play'||(s.ph==='morph'&&mt>=1200),lift=s.ph==='morph'?clamp((mt-1200)/900,0,1):1,by=m.y-u*4-lift*u*16-Math.sin(s.t/260)*u*1.5; s.sk=s.sk||[]; if(s.ph==='morph')s.mt+=dt;
+  if(bf){s.skd=(s.skd||0)-dt;if(s.skd<=0){s.skd=50;s.sk.push({x:m.x+rnd(-u*5,u*5),y:by+rnd(-u*2,u*6),vx:rnd(-.02,.02),vy:rnd(-.01,.03),l:700,c:pick(['#ffd86b','#ff9ec8','#c8b0ff','#fff'])})}}
+  if(s.ph==='morph'&&mt>=1200&&!s.fl_){s.fl_=1;SFX.conf();for(let i=0;i<34;i++){const a=i/34*6.28;s.sk.push({x:m.x,y:m.y-u*14,vx:Math.cos(a)*.18,vy:Math.sin(a)*.18,l:900,c:pick(['#ffd86b','#ff9ec8','#c8b0ff','#fff'])})}}
+  s.sk.forEach(q=>{q.x+=q.vx*dt;q.y+=q.vy*dt;q.l-=dt}); s.sk=s.sk.filter(q=>q.l>0);
   skyBG(W,H,u,s.t*.04,.46); const D=[],wk=(s.t/150|0)%2;
-  D.push([m.y,m.mv?SPC[wk?'walkA':'walkB']:SPC.happy,m.x-12*k,30,k,m.fl]);
-  s.cats.forEach(c=>{const cs=u*1.1,run=!c.caught&&(s.ph!=='idle'),fr=c.caught?4:run?(s.t/90|0)%4:1; D.push([c.y,SPR[c.k][fr],c.x-11*cs,16,cs,c.fl])});
+  if(!bf)D.push([m.y,m.mv?SPC[wk?'walkA':'walkB']:SPC.happy,m.x-12*k,30,k,m.fl]);
+  s.cats.forEach(c=>{const cs=u*1.1,fr=c.caught||!c.mv?4:(s.t/90|0)%4; D.push([c.y,SPR[c.k][fr],c.x-11*cs,16,cs,c.fl])});
   s.cats.forEach(c=>{ if(c.caught&&Math.random()<.02)hearts(c.x,c.y-u*10,1) });
   if(s.ph==='idle')rx.drawImage(SPR.letter,m.x-5*u,m.y-30*k-u*12,10*u,8*u);
   D.sort((a,b)=>a[0]-b[0]); D.forEach(d=>put(d[1],d[2],d[0],d[3],d[4],d[5]));
-  hud(W,'LETTER SCRAPS '+s.caught+'/3',s.caught/3); if(s.ph==='play'&&s.t<9000&&!s.caught)tip(W,H,['DRAG OR TAP TO RUN','CATCH THE CATS']); tcard(W,H,u,s,'CHAPTER III','Three Little Thieves'); }
-async function catWin(){ SFX.win(); await sleep(900); await say("Ada, Arthur and Gracie hand every scrap back. Pure chaos.",'','NARRATOR'); await say("Okay. Sunset. Quiet. Nobody touch anything.",'madi'); hideDlg(); RS=null; poemScene(); }
+  if(bf){const cs2=u*.95,fi=mt<1500?2:mt<1800?1:(s.t/90|0)%4; rx.fillStyle='rgba(255,170,215,.13)';rx.beginPath();rx.arc(m.x,by,u*24,0,6.3);rx.fill();rx.fillStyle='rgba(0,0,0,.22)';rx.fillRect(m.x-u*6,m.y-u*.6,u*12,u); rx.drawImage(SPR.bfly[fi],Math.round(m.x-24*cs2),Math.round(by-20*cs2),48*cs2,40*cs2)}
+  s.sk.forEach(q=>{rx.globalAlpha=Math.min(1,q.l/400);rx.fillStyle=q.c;rx.fillRect(q.x,q.y,u,u);rx.globalAlpha=1});
+  if(s.ph==='morph'){ const cy=m.y-u*14; for(let j=0;j<3;j++){const r=((s.mt/700+j/3)%1)*u*40; rx.strokeStyle=`rgba(255,170,215,${(1-r/(u*40))*.7})`;rx.lineWidth=3;rx.beginPath();rx.arc(m.x,cy,r,0,6.3);rx.stroke()}
+    const fa=mt<900?0:mt<1200?(mt-900)/300:mt<1700?1-(mt-1200)/500:0; if(fa>0){rx.fillStyle=`rgba(255,240,250,${fa*.9})`;rx.beginPath();rx.arc(m.x,cy,u*(14+40*fa),0,6.3);rx.fill()} }
+  hud(W,'LETTER SCRAPS '+s.caught+'/3',s.caught/3); if(s.ph==='play'&&s.t<9000&&!s.caught)tip(W,H,['DRAG OR TAP TO FLY','CATCH THE CATS']); tcard(W,H,u,s,'CHAPTER III','Three Little Thieves'); }
+async function catWin(){ SFX.win(); await sleep(900); await say("The butterfly floats down, and Ada, Arthur and Gracie hand every scrap back. Pure chaos.",'','NARRATOR'); await say("Okay. Sunset. Quiet. Nobody touch anything.",'madi'); hideDlg(); RS=null; poemScene(); }
 
 buildSprites(); buildRide(); fit(); makeStars(40); setBase('idle');
 /* =====================================================================
@@ -809,7 +844,7 @@ buildSprites(); buildRide(); fit(); makeStars(40); setBase('idle');
 if(/[?&]dev/.test(location.search)){
   const d=document.createElement('div'); d.style.cssText='position:fixed;left:6px;top:6px;z-index:100;font:8px "Press Start 2P",monospace';
   const bs='font:inherit;padding:8px;background:#111;color:#0f0;border:2px solid #0f0;text-align:left;cursor:pointer;opacity:.92';
-  const jump=[['TITLE',''],['AGE QUIZ','cake'],['CANDLES','wish'],['GIFT+THEFT','gift'],['HORSE CHASE','horse'],['WIND CHASE','wind'],['CAT CHASE','cats'],['POEM','poem'],['ENDING','final']];
+  const jump=[['TITLE',''],['AGE QUIZ','cake'],['CANDLES','wish'],['GIFT+THEFT','gift'],['HORSE CHASE','horse'],['WIND CHASE','wind'],['CAT CHASE','cats'],['LETTER (CH.IV)','poem'],['ENDING','final']];
   const skip=[['SKIP HORSE',()=>{if(RS&&RS.mode==='horse'&&!RS.over){RS.pause=false;RS.p=1}}],
               ['SKIP WIND',()=>{if(RS&&RS.mode==='wind'&&!RS.over){RS.pause=false;RS.p=1}}],
               ['SKIP CATS',()=>{if(RS&&RS.mode==='cat'&&!RS.over){RS.cats.forEach(c=>c.caught=1);RS.caught=3;RS.over=true;catWin()}}]];
