@@ -596,23 +596,23 @@ function marcus(p){return mk(24,30,R=>{const lg=p.legs||0,a=p.a||'down',sk='#f0b
     give:()=>{R(sl,4,18,2,7);R(sk,4,25,2,2);R(sl,18,19,5,2);R(sk,22,19,2,2)},
     shock:()=>{R(sl,4,13,2,6);R(sk,4,11,2,2);R(sl,18,13,2,6);R(sk,18,11,2,2)},
     whistle:()=>{R(sl,4,18,2,7);R(sk,4,25,2,2);R(sl,17,15,2,4);R(sk,15,13,2,2)}})[a]()})}
-function cat(k,f){return mk(22,16,R=>{const ada=k=='ada',ar=k=='arthur',gr=k=='gracie',c=ada?'#8a5a30':ar?'#17151c':'#1d1814',hi=ada?'#a8743a':ar?'#2e2b38':'#3a2a1e',sh=ada?'#6a4220':ar?'#0c0b10':'#100d0a',ey=ada?'#ffd23f':ar?'#7fe08a':'#ffb02e',sit=f==='sit',
+function cat(k,f){return mk(22,16,R=>{const aida=k=='aida',ar=k=='arthur',gr=k=='gracie',c=aida?'#8a5a30':ar?'#17151c':'#1d1814',hi=aida?'#a8743a':ar?'#2e2b38':'#3a2a1e',sh=aida?'#6a4220':ar?'#0c0b10':'#100d0a',ey=aida?'#ffd23f':ar?'#7fe08a':'#ffb02e',sit=f==='sit',
   line=(x1,y1,x2,y2,w,kk)=>{const n=Math.max(Math.abs(x2-x1),Math.abs(y2-y1))||1;for(let i=0;i<=n;i++)R(kk,Math.round(x1+(x2-x1)*i/n),Math.round(y1+(y2-y1)*i/n),w,w)};
   if(!sit){ const Lg=[[[5,11,2,15],[7,11,4,15],[12,11,16,15],[14,11,18,14]],[[5,11,5,15],[7,11,8,14],[12,11,12,15],[14,11,15,14]],[[5,11,8,15],[7,11,10,14],[12,11,10,15],[14,11,13,14]],[[5,11,6,15],[7,11,7,15],[12,11,13,15],[14,11,14,15]]][f];
     [Lg[1],Lg[3]].forEach(l=>line(l[0],l[1],l[2],l[3],2,sh)); const tw=f%2;
-    line(4,7,1,4-tw,2,c);line(1,4-tw,2,1,2,c);R(ada?'#15100c':sh,1,0+tw,2,2);
+    line(4,7,1,4-tw,2,c);line(1,4-tw,2,1,2,c);R(aida?'#15100c':sh,1,0+tw,2,2);
     R(c,4,6,11,6);R(c,5,5,9,1);R(hi,5,5,9,1);R(sh,5,11,9,1);
-    [Lg[0],Lg[2]].forEach(l=>{line(l[0],l[1],l[2],l[3],2,c);R(ada?'#fff':hi,l[2],l[3],2,1)});
+    [Lg[0],Lg[2]].forEach(l=>{line(l[0],l[1],l[2],l[3],2,c);R(aida?'#fff':hi,l[2],l[3],2,1)});
     R(c,14,3,7,6);R(hi,15,2,5,1);R(c,15,2,5,1);R(hi,15,2,5,1);R(c,14,1,2,2);R(c,19,1,2,2);R('#f0a0a8',15,2);R('#f0a0a8',20,2);
-    if(ada){[[6,6,3,2],[10,7,2,2],[5,9,2,1],[16,3,2,2]].forEach(a=>R('#15100c',...a));R('#fff',5,10,9,2);R('#fff',13,7,3,4)}
+    if(aida){[[6,6,3,2],[10,7,2,2],[5,9,2,1],[16,3,2,2]].forEach(a=>R('#15100c',...a));R('#fff',5,10,9,2);R('#fff',13,7,3,4)}
     if(gr){for(let X=4;X<15;X++)for(let Y=6;Y<12;Y++){const h=(X*7+Y*3)%5;if(h==0)R('#8a5a30',X,Y);else if(h==1&&X>8)R('#c07a3a',X,Y)}R('#8a5a30',14,3,3,3);R('#c07a3a',18,3,2,2)}
     R(ey,16,4,2,2);R(ey,19,4,2,2);R('#111',17,4,1,2);R('#111',20,4,1,2);R('#fff',16,4);R('#f08a9a',21,6);R('#3a1410',19,7,2,1);R('#e8e0d0',21,5);R('#e8e0d0',21,7)
   } else {
-    R(c,3,12,4,2);R(c,2,10,2,3);R(ada?'#15100c':sh,2,9,2,2);
+    R(c,3,12,4,2);R(c,2,10,2,3);R(aida?'#15100c':sh,2,9,2,2);
     R(c,6,5,7,10);R(c,5,8,9,6);R(hi,7,5,3,1);R(sh,6,14,7,1);
-    R(c,11,10,2,5);R(c,13,10,2,5);R(ada?'#fff':hi,11,14,2,1);R(ada?'#fff':hi,13,14,2,1);
+    R(c,11,10,2,5);R(c,13,10,2,5);R(aida?'#fff':hi,11,14,2,1);R(aida?'#fff':hi,13,14,2,1);
     R(c,9,2,8,5);R(hi,10,2,6,1);R(c,9,0,2,2);R(c,15,0,2,2);R('#f0a0a8',10,1);R('#f0a0a8',16,1);
-    if(ada){[[7,6,3,2],[6,10,2,2],[11,2,2,2]].forEach(a=>R('#15100c',...a));R('#fff',12,7,3,7)}
+    if(aida){[[7,6,3,2],[6,10,2,2],[11,2,2,2]].forEach(a=>R('#15100c',...a));R('#fff',12,7,3,7)}
     if(gr){for(let X=5;X<14;X++)for(let Y=5;Y<14;Y++){const h=(X*7+Y*3)%5;if(h==0)R('#8a5a30',X,Y);else if(h==1&&X>8)R('#c07a3a',X,Y)}R('#8a5a30',9,2,3,3);R('#c07a3a',14,3,2,2)}
     R(ey,11,3,2,2);R(ey,14,3,2,2);R('#111',12,3,1,2);R('#111',15,3,1,2);R('#fff',11,3);R('#f08a9a',17,5);R('#3a1410',15,6,2,1);R('#e8e0d0',17,4);R('#e8e0d0',17,6)
   }})}
@@ -645,10 +645,10 @@ function buildRide(){
   SPR.hn=[0,1,2,3].map(f=>horse(HC1,f,'none'));
   SPR.hd=document.createElement('canvas');SPR.hd.width=32;SPR.hd.height=38;{const c=SPR.hd.getContext('2d');c.drawImage(SPR.hn[1],0,0);c.globalCompositeOperation='source-atop';c.fillStyle='rgba(8,8,40,.55)';c.fillRect(0,0,32,38)}
   SPR.bfly=[0,1,2,3].map(butterfly);
-  for(const k of ['ada','arthur','gracie'])SPR[k]=[0,1,2,3,'sit'].map(f=>cat(k,f));
+  for(const k of ['aida','arthur','gracie'])SPR[k]=[0,1,2,3,'sit'].map(f=>cat(k,f));
 }
 function finalCast(){ if($('#fcast'))return; const d=document.createElement('div'); d.id='fcast';
-  d.innerHTML=`<img class="gimg" style="left:30%;width:calc(24px*var(--s))" src="${url(SPR.marcus)}">`+[['ada',64],['arthur',74],['gracie',84]].map(([k,l])=>`<img class="gimg" style="left:${l}%;width:calc(22px*var(--s)*.8)" src="${url(SPR[k][4])}">`).join(''); $('#sc-final').appendChild(d); }
+  d.innerHTML=`<img class="gimg" style="left:30%;width:calc(24px*var(--s))" src="${url(SPR.marcus)}">`+[['aida',64],['arthur',74],['gracie',84]].map(([k,l])=>`<img class="gimg" style="left:${l}%;width:calc(22px*var(--s)*.8)" src="${url(SPR[k][4])}">`).join(''); $('#sc-final').appendChild(d); }
 
 // ---- gift & the theft ----
 const cls=(el,c,ms)=>{el.classList.remove(c);void el.offsetWidth;el.classList.add(c);setTimeout(()=>el.classList.remove(c),ms)};
@@ -832,7 +832,7 @@ function campStep(dt,W,H,u){ const s=RS,hz=.55,gy=H*.74,fx=W*.28,fy=gy+u*3,k=u*1
   const drawSit=(sp,cx,ang)=>{rx.save();rx.translate(cx,hipY);rx.rotate(ang);rx.drawImage(sp,0,0,24,21,-12*k,-21*k,24*k,21*k);rx.restore()};
   const tl=ease(s.tilt),mdx=mx+(38-17*ease(s.shift))*k; drawSit(SPR.mc.down,mx,.05*tl); drawSit(tl>.3?(SPC.happy_b||SPC.happy):SPC.happy,mdx,-.24*tl);
   rx.fillStyle='#3a2410';rx.fillRect(W*.36,logTop+u*3,W*.58,u*6);rx.fillStyle='#5a3a1e';rx.fillRect(W*.36,logTop,W*.58,u*7);rx.fillStyle='#7a5030';rx.fillRect(W*.36,logTop,W*.58,u*1.5);rx.fillStyle='#2a1808';rx.fillRect(W*.36+u*20,logTop+u*3,u*6,u);rx.fillRect(W*.36+u*70,logTop+u*4,u*8,u);rx.fillStyle='#8a6038';rx.fillRect(W*.36-u,logTop,u*2,u*9);rx.fillStyle='#4a2c14';rx.fillRect(W*.36-u*.5,logTop+u*2,u,u*5);
-  put(SPR.ada[4],fx+u*9,gy+u*17,16,cs,true); put(SPR.gracie[4],W*.66,gy+u*16,16,cs,true);
+  put(SPR.aida[4],fx+u*9,gy+u*17,16,cs,true); put(SPR.gracie[4],W*.66,gy+u*16,16,cs,true);
   const pairs=[[0,1],[1,2],[1,3],[1,4],[1,5],[1,6],[3,5],[4,6]],pos={}; s.stars.forEach(q=>{if(q.caught)pos[q.slot]=[q.x,q.y]});
   rx.strokeStyle=`rgba(255,235,180,${s.line?.6:.22})`;rx.lineWidth=1.5;pairs.forEach(([a,b])=>{if(pos[a]&&pos[b]){rx.beginPath();rx.moveTo(pos[a][0],pos[a][1]);rx.lineTo(pos[b][0],pos[b][1]);rx.stroke()}});
   const star=(x,y,a,z)=>{rx.fillStyle=`rgba(255,240,200,${a*.25})`;rx.beginPath();rx.arc(x,y,z*3,0,6.3);rx.fill();rx.fillStyle=`rgba(255,250,230,${a})`;rx.fillRect(x-z/2,y-z*2.2,z,z*4.4);rx.fillRect(x-z*2.2,y-z/2,z*4.4,z)};
@@ -847,9 +847,9 @@ function campStep(dt,W,H,u){ const s=RS,hz=.55,gy=H*.74,fx=W*.28,fy=gy+u*3,k=u*1
 // ---- cats ----
 async function startCats(){ await go('ride','s-ride'); showMadi('50%',false); setTempo(420); const W=game.clientWidth,H=game.clientHeight,u=Math.max(3,Math.floor(W/105));
   RS={mode:'cat',u,t:0,card:4200,ph:'idle',pause:false,caught:0,tx:null,ty:null,dn:0,m:{x:W*.5,y:H*.78,fl:0,mv:0},
-    cats:[['ada','ADA',2.15],['arthur','ARTHUR',2.05],['gracie','GRACIE',1.95]].map(([k,n,v],i)=>({k,n,i,sp:u*v,x:W+u*20,y:H*(.62+i*.12),st:1,wt:0,wa:0,fl:1,caught:0,tw:0,dx:0,dy:0,sv:0,mv:0}))}; rLast=0; requestAnimationFrame(rtick); await sleep(4200);
+    cats:[['aida','aida',2.15],['arthur','ARTHUR',2.05],['gracie','GRACIE',1.95]].map(([k,n,v],i)=>({k,n,i,sp:u*v,x:W+u*20,y:H*(.62+i*.12),st:1,wt:0,wa:0,fl:1,caught:0,tw:0,dx:0,dy:0,sv:0,mv:0}))}; rLast=0; requestAnimationFrame(rtick); await sleep(4200);
   await say("Finally. Deep breath…",'madi'); await say("Okay. Opening it now…",'madi'); hideDlg(); RS.ph='enter'; await sleep(1700); RS.ph='corner'; SFX.err(); shake();
-  await say("MROW!",'','ADA'); await say("…they took the letter. All three of them.",'madi'); await say("Ada! Arthur! GRACIE!",'madi'); await say("They're way too fast on foot…",'madi');
+  await say("MROW!",'','aida'); await say("…they took the letter. All three of them.",'madi'); await say("aida! Arthur! GRACIE!",'madi'); await say("They're way too fast on foot…",'madi');
   hideDlg(); RS.ph='morph'; RS.mt=0; await sleep(2600);
   await say("Wait… I'm a BUTTERFLY?!",'madi'); await say("Drag or tap to fly after them. Cats get tired if you keep chasing!",'','HOW TO PLAY'); hideDlg(); RS.ph='play'; toast("Go get them, Butterfly!",2600,'marcus'); }
 function catStep(dt,W,H,u){ const s=RS,f=dt/16.7,m=s.m,k=u*.85,x0=u*10,x1=W-u*10,y0=H*.52,y1=H-u*6; s.t+=dt; if(s.card>0)s.card-=dt;
@@ -889,7 +889,7 @@ function catStep(dt,W,H,u){ const s=RS,f=dt/16.7,m=s.m,k=u*.85,x0=u*10,x1=W-u*10
   if(s.ph==='morph'){ const cy=m.y-u*14; for(let j=0;j<3;j++){const r=((s.mt/700+j/3)%1)*u*40; rx.strokeStyle=`rgba(255,170,215,${(1-r/(u*40))*.7})`;rx.lineWidth=3;rx.beginPath();rx.arc(m.x,cy,r,0,6.3);rx.stroke()}
     const fa=mt<900?0:mt<1200?(mt-900)/300:mt<1700?1-(mt-1200)/500:0; if(fa>0){rx.fillStyle=`rgba(255,240,250,${fa*.9})`;rx.beginPath();rx.arc(m.x,cy,u*(14+40*fa),0,6.3);rx.fill()} }
   hud(W,'LETTER SCRAPS '+s.caught+'/3',s.caught/3); if(s.ph==='play'&&s.t<9000&&!s.caught)tip(W,H,['DRAG OR TAP TO FLY','CATCH THE CATS']); tcard(W,H,u,s,'CHAPTER III','Three Little Thieves'); }
-async function catWin(){ SFX.win(); await sleep(900); await say("The butterfly floats down, and Ada, Arthur and Gracie hand every scrap back. Pure chaos.",'','NARRATOR'); await say("Okay. Sunset. Quiet. Nobody touch anything.",'madi'); hideDlg(); RS=null; poemScene(); }
+async function catWin(){ SFX.win(); await sleep(900); await say("The butterfly floats down, and aida, Arthur and Gracie hand every scrap back. Pure chaos.",'','NARRATOR'); await say("Okay. Sunset. Quiet. Nobody touch anything.",'madi'); hideDlg(); RS=null; poemScene(); }
 
 buildSprites(); buildRide(); fit(); makeStars(40); setBase('idle');
 /* =====================================================================
